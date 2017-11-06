@@ -1,47 +1,42 @@
 package com.sparkcognition.graph;
 
 import com.sparkcognition.maze.Cell;
-import com.sparkcognition.path.AllPaths;
-import javafx.util.Pair;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 
+/*Class to generate the maze with all the cells having decoded information for accessing the adjacent cell */
 public class GraphBuilder {
+    ArrayList<ArrayList<Cell>> cells;
+    int startRow;
+    int startCol;
+    int finishRow;
+    int finishCol;
 
-    public static HashMap<Pair<Integer, Integer>, Node> graphBuilder(AllPaths all) {
-        /*The graphBuilder returns a HashMap of the (x,y) co-ordinates in the maze as Key
-        and the Node which stores the neighbours and is it a mine or not. So if any other constraints such as
-        life or any feature is added this Node class can hold that information.*/
+    public GraphBuilder(ArrayList<ArrayList<Cell>> cells, int startRow, int startCol, int finishRow, int finishCol) {
+        this.cells = cells;
+        this.startRow = startRow;
+        this.startCol = startCol;
+        this.finishRow = finishRow;
+        this.finishCol = finishCol;
+    }
 
-        HashMap<Pair<Integer, Integer>, Node> nodes = new HashMap<>();
-        ArrayList<ArrayList<Cell>> cells = all.getCells();
-        for (int i = 0; i < cells.size(); i++) {
+    public ArrayList<ArrayList<Cell>> getCells() {
+        return cells;
+    }
 
-            for (int j = 0; j < cells.get(0).size(); j++) {
+    public int getStartRow() {
+        return startRow;
+    }
 
-                HashSet<Pair<Integer, Integer>> neighbours = new HashSet<>();
+    public int getStartCol() {
+        return startCol;
+    }
 
-                boolean mine = cells.get(i).get(j).isMine();
+    public int getFinishRow() {
+        return finishRow;
+    }
 
-                if (cells.get(i).get(j).isDown() && i < cells.size() - 1) {
-                    neighbours.add(new Pair<>(i + 1, j));
-                }
-                if (cells.get(i).get(j).isUp()) {
-                    neighbours.add(new Pair<>(i - 1, j));
-                }
-                if (cells.get(i).get(j).isLeft()) {
-                    neighbours.add(new Pair<>(i, j - 1));
-                }
-                if (cells.get(i).get(j).isRight() && j < cells.get(0).size()) {
-                    neighbours.add(new Pair<>(i, j + 1));
-                }
-                Node node = new Node(neighbours, mine);
-                nodes.put(new Pair<>(i, j), node);
-            }
-        }
-
-        return nodes;
+    public int getFinishCol() {
+        return finishCol;
     }
 }

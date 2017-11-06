@@ -65,13 +65,13 @@ public class BFSSolver {
         Collections.reverse(shortestPath);
 
         StringBuffer path = new StringBuffer();
-        path.append("[ ");
+        path.append("[");
 
         for (int count = 1; count < shortestPath.size(); count++) {
             path.append(nodeToPath(shortestPath, count));
 
             if (count == shortestPath.size() - 1) {
-                path.append(" ]");
+                path.append("]");
             } else {
                 path.append(", ");
             }

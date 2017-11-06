@@ -3,7 +3,7 @@ package com.sparkcognition.runner;
 import com.sparkcognition.graph.Node;
 
 import com.sparkcognition.maze.Maze;
-import com.sparkcognition.path.AllPaths;
+import com.sparkcognition.graph.GraphBuilder;
 import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.util.*;
 
-import static com.sparkcognition.graph.GraphBuilder.graphBuilder;
+import static com.sparkcognition.graph.NodeBuilder.graphBuilder;
 import static com.sparkcognition.maze.DrawMaze.allPaths;
 import static com.sparkcognition.maze.MazeLoader.getFile;
 import static com.sparkcognition.solver.BFSSolver.solver;
@@ -42,7 +42,7 @@ public class Runner {
         //getting the all possible steps in the maze
         for (int mazenumber = 0; mazenumber < mazes.size(); mazenumber++) {
             long startTime = System.currentTimeMillis();
-            AllPaths all = allPaths(mazes.get(mazenumber));
+            GraphBuilder all = allPaths(mazes.get(mazenumber));
             LOG.info(String.format("Successfully decoded the maze number %d", mazenumber));
 
             Pair<Integer, Integer> startLocation = new Pair<>(all.getStartRow(), all.getStartCol());
@@ -70,10 +70,9 @@ public class Runner {
             FileWriter fw = new FileWriter(textFile, true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter out = new PrintWriter(bw);
-            {
-                out.println(answer);
-            }
-            fw.append(answer);
+            out.println(answer);
+            out.close();
+            bw.close();
             fw.flush();
             fw.close();
         } catch (IOException e) {

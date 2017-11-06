@@ -1,14 +1,14 @@
 package com.sparkcognition.maze;
 
-import com.sparkcognition.path.AllPaths;
+import com.sparkcognition.graph.GraphBuilder;
 
 import java.util.ArrayList;
 
 /*Buliding a maze with information about all the cells*/
 public class DrawMaze {
 
-    public static AllPaths allPaths(Maze maze) {
-        AllPaths allPaths;
+    public static GraphBuilder allPaths(Maze maze) {
+        GraphBuilder graphBuilder;
         ArrayList<ArrayList<Cell>> cells = new ArrayList<>();
         //UP = 1 RIGHT = 2 DOWN = 4 LEFT = 8 START = 16 END = 32 MINE = 64
 
@@ -35,7 +35,7 @@ public class DrawMaze {
             }
             cells.add(rowCells);
         }
-        allPaths = new AllPaths(cells, startRow, startCol, finishRow, finishCol);
-        return allPaths;
+        graphBuilder = new GraphBuilder(cells, startRow, startCol, finishRow, finishCol);
+        return graphBuilder;
     }
 }
